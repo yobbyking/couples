@@ -2,26 +2,36 @@
 
 > Private chat app for just you and your love. Built with love ❤️.
 
-## 📥 Download APK
+## 📥 Download APK (Native Android App)
 
 **[⬇ Download Kayla_Chat.apk](https://github.com/yobbyking/couples/releases/download/v1.0/Kayla_Chat.apk)**
 
-1. Click the link above to download the APK
-2. Transfer it to your Android phone
-3. Open it → allow "Install from unknown sources"
-4. Install → Open → Login with **Kayla** or **Yobby**
-
-## 📱 APK Features
-
-- 💕 **WhatsApp-style chat UI** — message bubbles, timestamps
-- 🔔 **Background notifications** — popup when new message arrives (live, no timeout)
-- 🔄 **Persistent login** — stays logged in all the time (uses cookies)
+### APK Features
+- 💕 **Native Android app** — not a WebView wrapper, fully native UI
+- 🖼️ **Embedded images** — boy.png and girl.png built into the APK (no internet needed for backgrounds)
+- 🔔 **Cool notifications** — popup with vibration when new messages arrive
+- 📱 **Permissions popup** — requests camera, microphone, storage on first launch
+- 🎤 **Voice notes** — hold the 🎤 button to record, tap to stop → sends voice note
+- 📷 **Image sharing** — tap 📷 to pick from gallery → sends image in chat (like WhatsApp)
+- 💬 **Real-time chat** — messages appear instantly via WebSocket
+- 🔄 **Persistent login** — stays logged in even after closing the app
+- 🎨 **Premium design** — pink/purple gradient theme, glassmorphic bubbles
+- ⚙️ **Background service** — keeps app alive, notifications never timeout
 - 📱 **Android 7.0+** supported
-- 🎨 **Premium glassmorphic design** with pink/purple gradient theme
-- ⚙️ **Background service** — keeps app alive and listening for messages
-- 🖼️ **Background images** — boy sees boy.png, girl sees girl.png
-- ⌨️ **Typing indicators** — animated dots when partner is typing
-- 🟢 **Online status** — green dot shows when partner is online
+
+### Installation
+1. Download the APK (4.2 MB)
+2. Allow "Install from unknown sources"
+3. Install → Open
+4. Login with **Kayla** or **Yobby** (no password)
+5. Grant permissions when prompted
+6. Start chatting! 💕
+
+### How to use
+- **Send text**: Type in the input bar → tap ➤
+- **Send image**: Tap 📷 → pick from gallery
+- **Send voice note**: Hold 🎤 → speak → tap to stop → sends automatically
+- **Notifications**: Messages appear as popups with vibration
 
 ## 🔗 Links
 
@@ -37,13 +47,5 @@
 | Yobby | Girl |
 
 No password needed — just enter the username and start chatting!
-
-## 🚀 Deploy Web Version
-
-1. Go to https://render.com → New → Web Service
-2. Connect this repo
-3. Render auto-detects `render.yaml`
-4. Click Create — deploys in ~1 minute
-5. Visit the URL → Login → Chat!
 
 *Made with 💕*
