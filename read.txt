@@ -9,3 +9,4 @@ Username Kayla no password for girl is yobby
 Make it have cool ui chatting looks like Whatsapp....
 
 cool chatting ui and we deploy on render use this repo 
+2.use the boy.png on girl side background on chatting ui and girl.png on bot side
