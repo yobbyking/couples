@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Kayla 💕 Private Chat</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;background:linear-gradient(135deg,#1a0a1e 0%,#2d1b3d 30%,#1a0a2e 60%,#0a0a1e 100%);color:#fff}
+/* Login */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden}
+.hearts-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hearts-bg span{position:absolute;font-size:20px;opacity:.15;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+.login-card{position:relative;z-index:1;background:rgba(255,255,255,.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,105,180,.2);border-radius:24px;padding:40px 30px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.login-card .logo{text-align:center;margin-bottom:24px}
+.login-card .logo .emoji{font-size:56px}
+.login-card .logo h1{font-size:36px;font-weight:800;background:linear-gradient(135deg,#ff6b9d,#c44fe8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.login-card .logo p{font-size:12px;color:rgba(255,182,193,.6);letter-spacing:2px;margin-top:4px}
+.login-card label{display:block;font-size:11px;color:rgba(255,182,193,.8);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;font-weight:600}
+.login-card input{width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,105,180,.3);border-radius:16px;padding:16px;font-size:16px;color:#fff;outline:none;transition:all .2s;margin-bottom:16px}
+.login-card input::placeholder{color:rgba(255,182,193,.3)}
+.login-card input:focus{border-color:rgba(255,105,180,.6);background:rgba(255,255,255,.15)}
+.login-card button{width:100%;background:linear-gradient(135deg,#ff5c8a,#c44fe8);color:#fff;border:none;border-radius:16px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.5px;box-shadow:0 8px 24px rgba(255,92,138,.3)}
+.login-card button:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,92,138,.5)}
+.login-card .hint{text-align:center;font-size:11px;color:rgba(255,182,193,.4);margin-top:16px}
+.login-card .hint span{color:#ff6b9d;font-weight:600}
+/* Chat */
+.chat{display:none;flex-direction:column;height:100vh;height:100dvh}
+.chat-header{background:rgba(255,92,138,.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,105,180,.2);padding:12px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.chat-header .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ff5c8a,#c44fe8);display:flex;align-items:center;justify-content:center;font-size:20px;position:relative;flex-shrink:0}
+.chat-header .avatar .dot{position:absolute;bottom:0;right:0;width:12px;height:12px;background:#4ade80;border-radius:50%;border:2px solid #1a0a1e;display:none}
+.chat-header .avatar .dot.show{display:block}
+.chat-header .info{flex:1;min-width:0}
+.chat-header .info .name{font-size:17px;font-weight:600}
+.chat-header .info .status{font-size:12px;color:rgba(255,255,255,.5)}
+.chat-header .heart{font-size:24px}
+.chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background-size:cover;background-position:center;background-attachment:fixed}
+.chat-body::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,10,30,.85),rgba(45,27,61,.85));z-index:-1}
+.day-sep{display:flex;justify:center;margin:8px 0}
+.day-sep span{background:rgba(255,92,138,.2);backdrop-filter:blur(10px);color:rgba(255,182,193,.8);font-size:11px;padding:6px 16px;border-radius:20px;border:1px solid rgba(255,105,180,.2)}
+.msg{max-width:75%;padding:10px 14px;border-radius:18px;backdrop-filter:blur(10px);word-wrap:break-word;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.me{align-self:flex-end;background:linear-gradient(135deg,rgba(255,92,138,.8),rgba(196,79,232,.8));border-radius:18px 18px 4px 18px}
+.msg.them{align-self:flex-start;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.1);border-radius:18px 18px 18px 4px}
+.msg .text{font-size:15px;white-space:pre-wrap}
+.msg .time{font-size:10px;margin-top:4px;opacity:.6;text-align:right}
+.typing-indicator{display:flex;gap:4px;padding:12px 16px;background:rgba(255,255,255,.15);border-radius:18px 18px 18px 4px;align-self:flex-start;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1)}
+.typing-indicator span{width:8px;height:8px;background:#ff6b9d;border-radius:50%;animation:bounce 1s infinite}
+.typing-indicator span:nth-child(2){animation-delay:.2s}
+.typing-indicator span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.chat-footer{background:rgba(255,92,138,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,105,180,.2);padding:10px}
+.chat-footer .input-row{display:flex;gap:8px;max-width:800px;margin:0 auto}
+.chat-footer input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,105,180,.2);border-radius:24px;padding:12px 20px;color:#fff;font-size:15px;outline:none;transition:all .2s}
+.chat-footer input::placeholder{color:rgba(255,255,255,.4)}
+.chat-footer input:focus{border-color:rgba(255,105,180,.5)}
+.chat-footer button{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ff5c8a,#c44fe8);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.chat-footer button:hover{transform:scale(1.05)}
+.chat-footer button:active{transform:scale(.95)}
+.chat-footer .credit{text-align:center;font-size:10px;color:rgba(255,182,193,.3);margin-top:6px}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-wrap" id="loginWrap">
+  <div class="hearts-bg" id="heartsBg"></div>
+  <div class="login-card">
+    <div class="logo">
+      <div class="emoji">💕</div>
+      <h1>Kayla</h1>
+      <p>PRIVATE CHAT · JUST US TWO</p>
+    </div>
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Enter Kayla or Yobby" autocomplete="off">
+    <button onclick="doLogin()">Enter Chat 💕</button>
+    <p class="hint">Use <span>Kayla</span> or <span>Yobby</span> to login</p>
+  </div>
+</div>
+
+<!-- Chat -->
+<div class="chat" id="chat">
+  <div class="chat-header">
+    <div class="avatar">
+      👩
+      <div class="dot" id="onlineDot"></div>
+    </div>
+    <div class="info">
+      <div class="name" id="partnerName">Yobby 💕</div>
+      <div class="status" id="partnerStatus">⚪ Last seen recently</div>
+    </div>
+    <div class="heart">💕</div>
+  </div>
+  <div class="chat-body" id="chatBody" style="position:relative">
+    <div class="day-sep"><span>💕 Private Chat</span></div>
+  </div>
+  <div class="chat-footer">
+    <div class="input-row">
+      <input type="text" id="msgInput" placeholder="Type a message..." autocomplete="off">
+      <button onclick="sendMessage()">➤</button>
+    </div>
+    <div class="credit">Kayla 💕 Made for us</div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+let myName = '';
+let socket = null;
+let isTyping = false;
+let typingTimeout = null;
+
+// Generate floating hearts
+const heartsBg = document.getElementById('heartsBg');
+const hearts = ['💕','💖','💗','💞','🌹','❤️'];
+for (let i = 0; i < 15; i++) {
+  const s = document.createElement('span');
+  s.textContent = hearts[i % hearts.length];
+  s.style.left = (i * 6.6) % 100 + '%';
+  s.style.top = (i * 13) % 100 + '%';
+  s.style.fontSize = (20 + (i % 4) * 10) + 'px';
+  s.style.animationDelay = (i * 0.2) + 's';
+  heartsBg.appendChild(s);
+}
+
+function doLogin() {
+  const name = document.getElementById('username').value.trim().toLowerCase();
+  if (name !== 'kayla' && name !== 'yobby') {
+    alert('Invalid username. Use Kayla or Yobby.');
+    return;
+  }
+  myName = name;
+  const isKayla = name === 'kayla';
+  const partnerImg = isKayla ? '/girl.png' : '/boy.png';
+  document.getElementById('partnerName').textContent = isKayla ? 'Yobby 💕' : 'Kayla 💕';
+  document.querySelector('.chat-header .avatar').textContent = isKayla ? '👩' : '👨';
+  document.getElementById('chatBody').style.backgroundImage = 'url(' + partnerImg + ')';
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('chat').style.display = 'flex';
+
+  socket = io();
+  socket.on('connect', () => socket.emit('login', myName));
+  socket.on('messages', (msgs) => { msgs.forEach(addMessage); scrollToBottom(); });
+  socket.on('new-message', addMessage);
+  socket.on('partner-online', () => { document.getElementById('onlineDot').classList.add('show'); document.getElementById('partnerStatus').textContent = '🟢 Online'; });
+  socket.on('partner-offline', () => { document.getElementById('onlineDot').classList.remove('show'); document.getElementById('partnerStatus').textContent = '⚪ Last seen recently'; });
+  socket.on('partner-typing', (data) => {
+    if (data.sender !== myName) {
+      if (data.isTyping) showTyping(); else hideTyping();
+    }
+  });
+  socket.on('auth-error', (err) => { alert(err); location.reload(); });
+}
+
+function addMessage(msg) {
+  hideTyping();
+  const body = document.getElementById('chatBody');
+  const div = document.createElement('div');
+  div.className = 'msg ' + (msg.sender === myName ? 'me' : 'them');
+  const time = new Date(msg.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  div.innerHTML = '<div class="text">' + escapeHtml(msg.text) + '</div><div class="time">' + time + '</div>';
+  body.appendChild(div);
+  scrollToBottom();
+}
+
+function sendMessage() {
+  const input = document.getElementById('msgInput');
+  const text = input.value.trim();
+  if (!text || !socket) return;
+  socket.emit('send-message', { text, sender: myName, time: new Date().toISOString() });
+  input.value = '';
+  if (isTyping) { isTyping = false; socket.emit('typing', { sender: myName, isTyping: false }); }
+}
+
+function handleTyping() {
+  if (!socket) return;
+  const val = document.getElementById('msgInput').value;
+  if (val.length > 0 && !isTyping) { isTyping = true; socket.emit('typing', { sender: myName, isTyping: true }); }
+  if (typingTimeout) clearTimeout(typingTimeout);
+  typingTimeout = setTimeout(() => { isTyping = false; socket.emit('typing', { sender: myName, isTyping: false }); }, 2000);
+  if (val.length === 0) { isTyping = false; socket.emit('typing', { sender: myName, isTyping: false }); }
+}
+
+function showTyping() {
+  hideTyping();
+  const body = document.getElementById('chatBody');
+  const div = document.createElement('div');
+  div.className = 'typing-indicator';
+  div.id = 'typingIndicator';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  body.appendChild(div);
+  scrollToBottom();
+}
+
+function hideTyping() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
+}
+
+function scrollToBottom() {
+  setTimeout(() => { const b = document.getElementById('chatBody'); b.scrollTop = b.scrollHeight; }, 50);
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+document.getElementById('msgInput').addEventListener('input', handleTyping);
+document.getElementById('msgInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+document.getElementById('username').addEventListener('keydown', (e) => { if (e.key === 'Enter') doLogin(); });
+</script>
+</body>
+</html>
