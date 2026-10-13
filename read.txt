@@ -1,0 +1,11 @@
+..I want a new project here named Kayla ..
+
+I want a chatting site that will be for only two people for my love and me ....
+
+Make it cooler premium background love background...and auth for boy is 
+
+Username Kayla no password for girl is yobby
+
+Make it have cool ui chatting looks like Whatsapp....
+
+cool chatting ui and we deploy on render use this repo 
