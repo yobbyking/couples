@@ -26,7 +26,7 @@
 ## 🔗 Links
 
 - **Download APK**: https://github.com/yobbyking/couples/releases/download/v1.0/Kayla_Chat.apk
-- **Web Version**: https://kayla-chat.onrender.com
+- **Web Version**: https://kaylayobby.onrender.com
 - **GitHub Repo**: https://github.com/yobbyking/couples
 
 ## 💕 Login
