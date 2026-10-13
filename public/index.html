@@ -132,7 +132,7 @@ function doLogin() {
   }
   myName = name;
   const isKayla = name === 'kayla';
-  const partnerImg = isKayla ? '/girl.png' : '/boy.png';
+  const partnerImg = isKayla ? '/boy.png' : '/girl.png';
   document.getElementById('partnerName').textContent = isKayla ? 'Yobby 💕' : 'Kayla 💕';
   document.querySelector('.chat-header .avatar').textContent = isKayla ? '👩' : '👨';
   document.getElementById('chatBody').style.backgroundImage = 'url(' + partnerImg + ')';
